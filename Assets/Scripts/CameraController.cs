@@ -6,14 +6,15 @@ public class CameraController : MonoBehaviour
     private float currentPosX;
     private Vector3 velocity = Vector3.zero;
 
+    [SerializeField] private Transform player;
+
     private void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(currentPosX, transform.position.y, 
-            transform.position.z), ref velocity, speed);
+        transform.position = new Vector3(player.position.x, transform.position.y, transform.position.z);
     }
 
-    public void MoveToNewRoom(Transform newRoom)
+    public void MoveToNewRoom(Transform _newRoom)
     {
-        currentPosX = newRoom.position.x;
+        currentPosX = _newRoom.position.x;
     }
 }
