@@ -1,4 +1,5 @@
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
-        currentHealth = Mathf.Clamp(currentHealth -  _damage, 0, startingHealth);
+        currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
 
         if (currentHealth > 0)
         {
@@ -28,13 +29,21 @@ public class Health : MonoBehaviour
                 anim.SetTrigger("die");
                 GetComponent<PandaMovement>().enabled = false;
                 dead = true;
+
+
+                // Încarcă scena GameOver
+                Invoke("LoadGameOverScene", 2f);
             }
-        
         }
     }
 
     public void AddHealth(float _value)
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
+    }
+
+    private void LoadGameOverScene()
+    {
+        SceneManager.LoadScene("GameOver");
     }
 }
